@@ -725,8 +725,8 @@ button:disabled {
 .auth-login-card h1 {
   margin: 0;
   max-width: 12ch;
-  font-size: clamp(38px, 4vw, 58px);
-  line-height: 0.96;
+  font-size: clamp(34px, 3.35vw, 48px);
+  line-height: 1.04;
   letter-spacing: 0;
 }
 
@@ -1315,5 +1315,414 @@ button:disabled {
 
   .server-strip {
     display: none;
+  }
+}
+
+/* Browniezzz neo-brutal skin */
+:root {
+  --ink: #2a1209;
+  --paper: #fff2dc;
+  --cream: #ffe5b8;
+  --cocoa: #5a1f10;
+  --brown: #8f4b28;
+  --honey: #ffbf47;
+  --peach: #ff916d;
+  --bubble: #ff6aa8;
+  --pink: #ffc1d8;
+  --sky: #42dff4;
+  --mint: #9cff5f;
+  --lavender: #a68bff;
+  --shadow-hard: 8px 8px 0 var(--ink);
+  --shadow-hard-sm: 5px 5px 0 var(--ink);
+  --shadow-hard-lg: 12px 12px 0 var(--ink);
+  --line: var(--ink);
+  --line-strong: var(--ink);
+  --text: var(--ink);
+  --muted: #6f3c28;
+  --soft: #3f1d11;
+  --panel: var(--paper);
+  --panel-strong: var(--cream);
+  --cyan: var(--sky);
+  --lime: var(--mint);
+  --coral: var(--bubble);
+  --amber: var(--honey);
+  --violet: var(--lavender);
+  --shadow: var(--shadow-hard);
+}
+
+body {
+  background:
+    linear-gradient(90deg, rgba(42, 18, 9, 0.12) 0 2px, transparent 2px 54px),
+    linear-gradient(0deg, rgba(42, 18, 9, 0.12) 0 2px, transparent 2px 54px),
+    linear-gradient(135deg, #ffbdd6 0%, #ffd46f 30%, #fff2dc 52%, #9eefff 76%, #ffc1d8 100%);
+  color: var(--ink);
+  font-family: var(--font-round), ui-rounded, system-ui, sans-serif;
+  font-weight: 600;
+}
+
+.auth-shell {
+  background:
+    linear-gradient(90deg, rgba(42, 18, 9, 0.16) 0 2px, transparent 2px 58px),
+    linear-gradient(0deg, rgba(42, 18, 9, 0.16) 0 2px, transparent 2px 58px),
+    linear-gradient(135deg, #ffbad2 0%, #ffdf7b 26%, #fff1d8 48%, #58def2 70%, #ff78b0 100%);
+}
+
+.auth-frame,
+.sidebar,
+.topbar,
+.panel,
+.preview-panel,
+.metric,
+.login-panel,
+.command-console,
+.live-module-panel,
+.auth-dock,
+.workbench-hero,
+.auth-login-card,
+.brand-preview-panel {
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  background: var(--paper);
+  box-shadow: var(--shadow-hard);
+}
+
+.auth-frame {
+  background: linear-gradient(90deg, var(--paper) 0%, #ffe7bd 42%, #ffc6dd 100%);
+}
+
+.auth-topbar {
+  height: 88px;
+  border-bottom: 3px solid var(--ink);
+  background: var(--cream);
+  color: var(--ink);
+}
+
+.auth-brand strong,
+.brand h1,
+.server-name,
+.user-mini strong,
+.panel-heading h3,
+.preview-panel h3,
+.module-panel-head strong,
+.metric strong,
+.auth-login-card h1,
+.workbench-hero h2,
+.top-title h2,
+.module-title {
+  font-family: var(--font-display), Impact, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.auth-brand small,
+.brand p,
+.top-title p,
+.muted,
+.field-label,
+.tiny,
+.auth-login-card p,
+.module-panel-head small,
+.console-discord-card p,
+.event-line,
+.preview-message,
+.activity-item {
+  color: var(--muted);
+}
+
+.auth-brand-mark,
+.brand-logo,
+.live-module-icon,
+.discord-user-dot,
+.guild-initial {
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  background: var(--sky);
+  color: var(--ink);
+  box-shadow: var(--shadow-hard-sm);
+}
+
+.auth-login-card {
+  border-width: 0 3px 0 0;
+  border-radius: 0;
+  box-shadow: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35), transparent 42%),
+    var(--cream);
+}
+
+.auth-login-card h1 {
+  color: var(--ink);
+  text-shadow: 3px 3px 0 var(--pink);
+}
+
+.auth-eyebrow,
+.kbd,
+.command-pill {
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  background: var(--sky);
+  color: var(--ink);
+  box-shadow: var(--shadow-hard-sm);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-weight: 900;
+}
+
+.auth-connect-button,
+.primary-button,
+.dock-control.active,
+.module-switch.active {
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--sky), var(--mint));
+  color: var(--ink);
+  box-shadow: var(--shadow-hard-sm);
+  font-family: var(--font-round), ui-rounded, system-ui, sans-serif;
+  font-weight: 950;
+}
+
+.auth-connect-button:hover,
+.primary-button:hover,
+.dock-control:hover,
+.module-switch:hover,
+.server-button:hover,
+.nav-button:hover,
+.ghost-button:hover,
+.pill-button:hover,
+.color-button:hover,
+.icon-button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 9px 9px 0 var(--ink);
+}
+
+.auth-proof-grid span,
+.module-switch,
+.dock-control,
+.server-button,
+.nav-button,
+.ghost-button,
+.danger-button,
+.pill-button,
+.color-button,
+.icon-button,
+.input,
+.select,
+.textarea,
+.module-stat,
+.console-command,
+.console-discord-card,
+.preview-chat-line p,
+.activity-item {
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  background: #fff8eb;
+  color: var(--ink);
+  box-shadow: var(--shadow-hard-sm);
+}
+
+.auth-proof-grid span:nth-child(1),
+.server-button.active,
+.nav-button.active,
+.pill-button.active {
+  background: var(--sky);
+}
+
+.auth-proof-grid span:nth-child(2),
+.module-switch:nth-child(2),
+.metric:nth-child(2) {
+  background: var(--pink);
+}
+
+.auth-proof-grid span:nth-child(3),
+.module-switch:nth-child(3),
+.metric:nth-child(3) {
+  background: var(--honey);
+}
+
+.module-switch:nth-child(4),
+.metric:nth-child(4) {
+  background: var(--lavender);
+}
+
+.workbench-hero {
+  min-height: 128px;
+  background:
+    linear-gradient(90deg, rgba(255, 242, 220, 0.70), rgba(255, 193, 216, 0.56)),
+    url("/brand/brownie-cloud.png") center / cover no-repeat;
+}
+
+.workbench-hero h2 {
+  color: var(--ink);
+  text-shadow: 3px 3px 0 var(--sky);
+}
+
+.control-surface {
+  gap: 20px;
+}
+
+.command-console {
+  background: #11131d;
+  color: var(--paper);
+}
+
+.console-command,
+.console-discord-card {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.console-command strong {
+  color: var(--cocoa);
+  font-family: var(--font-display), Impact, sans-serif;
+  text-shadow: 2px 2px 0 var(--sky);
+}
+
+.event-line {
+  color: var(--paper);
+}
+
+.event-line span,
+.dot,
+.window-dot.cyan {
+  background: var(--sky);
+  box-shadow: 0 0 0 3px var(--ink);
+}
+
+.window-dot.amber {
+  background: var(--honey);
+  box-shadow: 0 0 0 3px var(--ink);
+}
+
+.window-dot.coral {
+  background: var(--bubble);
+  box-shadow: 0 0 0 3px var(--ink);
+}
+
+.live-module-panel {
+  background: var(--cream);
+}
+
+.module-stat {
+  background: #fff8eb;
+}
+
+.module-stat span,
+.metric span {
+  color: var(--cocoa);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-weight: 950;
+}
+
+.preview-deck {
+  border: 3px solid var(--ink);
+  background:
+    linear-gradient(180deg, rgba(255, 242, 220, 0.58), rgba(255, 193, 216, 0.72)),
+    url("/brand/brownie-cloud.png") center / cover no-repeat;
+  box-shadow: var(--shadow-hard-sm);
+}
+
+.preview-chat-line span {
+  border: 3px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.preview-chat-line.bot span {
+  background: var(--sky);
+  color: var(--ink);
+}
+
+.preview-sliders span,
+.dock-meter span {
+  border: 2px solid var(--ink);
+  background: var(--bubble);
+}
+
+.auth-dock {
+  background: var(--paper);
+}
+
+.dock-control {
+  background: var(--cream);
+}
+
+.auth-wide-banner,
+.brand-preview-image {
+  border: 3px solid var(--ink);
+}
+
+.sidebar {
+  background: var(--cream);
+}
+
+.brand,
+.server-strip,
+.user-bar {
+  border-color: var(--ink);
+  border-width: 0 0 3px;
+}
+
+.topbar {
+  background: var(--paper);
+}
+
+.panel {
+  background: var(--paper);
+}
+
+.preview-panel {
+  background: var(--cream);
+}
+
+.switch {
+  border: 3px solid var(--ink);
+  background: var(--paper);
+  box-shadow: var(--shadow-hard-sm);
+}
+
+.switch span {
+  background: var(--bubble);
+  border: 2px solid var(--ink);
+}
+
+.switch.on {
+  background: var(--mint);
+  border-color: var(--ink);
+}
+
+.field-label {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  color: var(--cocoa);
+}
+
+.select option {
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.notice {
+  border: 3px solid var(--ink);
+  background: var(--honey);
+  color: var(--ink);
+  box-shadow: var(--shadow-hard-sm);
+}
+
+@media (max-width: 720px) {
+  .auth-frame,
+  .sidebar,
+  .topbar,
+  .panel,
+  .preview-panel,
+  .metric,
+  .command-console,
+  .live-module-panel,
+  .auth-dock,
+  .workbench-hero {
+    box-shadow: var(--shadow-hard-sm);
+  }
+
+  .auth-login-card {
+    border-right: 0;
+    border-bottom: 3px solid var(--ink);
   }
 }
