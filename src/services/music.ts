@@ -20,6 +20,21 @@ import { palette } from "../utils/ui.js";
 
 let manager: LavalinkManager | null = null;
 
+const lavalinkUnavailableMessage =
+  "Lavalink is not ready right now. Start/restart Lavalink, wait 10 seconds, then restart the bot so it can attach to a usable node.";
+
+function isMissingLavalinkNodeError(error: unknown) {
+  return error instanceof Error && /no lavalink node/i.test(error.message);
+}
+
+function explainLavalinkError(error: unknown): never {
+  if (isMissingLavalinkNodeError(error)) {
+    throw new Error(lavalinkUnavailableMessage);
+  }
+
+  throw error;
+}
+
 export function initMusic(client: Client<true>) {
   manager = new LavalinkManager({
     nodes: [
@@ -130,7 +145,12 @@ export async function createOrGetMusicPlayer(interaction: ChatInputCommandIntera
     volume: env.musicDefaultVolume
   });
 
-  await player.connect();
+  try {
+    await player.connect();
+  } catch (error) {
+    explainLavalinkError(error);
+  }
+
   return player;
 }
 
@@ -139,7 +159,9 @@ export async function playQuery(interaction: ChatInputCommandInteraction, query:
   const searchQuery = isUrl(query)
     ? query
     : { query, source: env.musicSearchSource as SearchPlatform };
-  const result = await player.search(searchQuery, interaction.user);
+  const result = await player.search(searchQuery, interaction.user).catch((error: unknown) => {
+    explainLavalinkError(error);
+  });
 
   if (!result.tracks.length) {
     throw new Error("No tracks found.");
@@ -149,7 +171,9 @@ export async function playQuery(interaction: ChatInputCommandInteraction, query:
   player.queue.add(tracks);
 
   if (!player.playing && !player.paused) {
-    await player.play();
+    await player.play().catch((error: unknown) => {
+      explainLavalinkError(error);
+    });
   }
 
   return { player, result, added: tracks };
