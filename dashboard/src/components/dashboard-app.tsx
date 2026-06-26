@@ -1,21 +1,30 @@
 "use client";
 
 import {
+  ArrowRight,
+  AudioLines,
   Bot,
   Brain,
   ChevronRight,
+  CirclePlay,
   Crown,
+  Disc3,
   Gauge,
   Headphones,
   Loader2,
   LockKeyhole,
   LogOut,
+  MessagesSquare,
   Music2,
+  Radio,
   RefreshCw,
   Save,
   Server,
+  Settings2,
   Shield,
+  SlidersHorizontal,
   Sparkles,
+  Terminal,
   Ticket,
   Wand2,
 } from "lucide-react";
@@ -105,6 +114,79 @@ const personaOptions: Array<{ key: AiPersona; label: string }> = [
   { key: "sassy", label: "Sassy" },
   { key: "default", label: "Chill" },
   { key: "professional", label: "Clean" }
+];
+
+const loginModules: Array<{
+  key: string;
+  label: string;
+  command: string;
+  title: string;
+  description: string;
+  accent: string;
+  icon: typeof Gauge;
+  stats: Array<{ label: string; value: string }>;
+  events: string[];
+}> = [
+  {
+    key: "ai",
+    label: "AI",
+    command: "/ai setup",
+    title: "Persona engine",
+    description: "Channel-locked replies with a custom voice, fast Groq routing, and admin controls.",
+    accent: "#38dff8",
+    icon: Brain,
+    stats: [
+      { label: "Latency", value: "Fast" },
+      { label: "Scope", value: "1 channel" },
+      { label: "Mode", value: "Gen Z" }
+    ],
+    events: ["Synced AI channel", "Loaded persona prompt", "Ready for /ai ask"]
+  },
+  {
+    key: "music",
+    label: "Music",
+    command: "/music play",
+    title: "Music deck",
+    description: "Lavalink playback, queue actions, loop modes, and clean controls for voice sessions.",
+    accent: "#a7f950",
+    icon: Disc3,
+    stats: [
+      { label: "Engine", value: "Lava" },
+      { label: "Volume", value: "80%" },
+      { label: "Queue", value: "Live" }
+    ],
+    events: ["Joined voice", "Resolved track", "Buttons armed"]
+  },
+  {
+    key: "tickets",
+    label: "Tickets",
+    command: "/ticket-panel",
+    title: "Support cockpit",
+    description: "Private category routing, staff roles, claim flow, lock flow, and transcript actions.",
+    accent: "#ffbf47",
+    icon: Ticket,
+    stats: [
+      { label: "Panel", value: "Ready" },
+      { label: "Staff", value: "Role" },
+      { label: "Flow", value: "Modal" }
+    ],
+    events: ["Category mapped", "Support role checked", "Ticket panel ready"]
+  },
+  {
+    key: "levels",
+    label: "Levels",
+    command: "/leveling enable",
+    title: "XP systems",
+    description: "Rank tracking, leaderboard storage, announcement channels, and growth signals.",
+    accent: "#ff5d7d",
+    icon: Crown,
+    stats: [
+      { label: "Storage", value: "SQL" },
+      { label: "Cooldown", value: "60s" },
+      { label: "Ranks", value: "Live" }
+    ],
+    events: ["XP table online", "Rank cards enabled", "Level channel synced"]
+  }
 ];
 
 function hexColor(value: number) {
@@ -197,66 +279,196 @@ function Toggle({
 }
 
 function LoginScreen({ error }: { error: string | null }) {
+  const [activeKey, setActiveKey] = useState(loginModules[0].key);
+  const active = loginModules.find((module) => module.key === activeKey) ?? loginModules[0];
+  const ActiveIcon = active.icon;
+  const previewLines =
+    active.key === "music"
+      ? ["Queued blue by yung kai", "Loop off, volume 80%, queue synced"]
+      : active.key === "tickets"
+        ? ["Ticket opened from modal", "Support role notified privately"]
+        : active.key === "levels"
+          ? ["Raven reached level 12", "Leaderboard updated in Supabase"]
+          : ["Raven asked for setup help", "Browniezzz replied in Gen Z mode"];
+
   return (
-    <main className="login-layout">
-      <section className="login-panel">
-        <div className="brand-mark">
-          <span className="brand-logo">
-            <Bot size={22} />
-          </span>
-          <div>
-            <strong>Browniezzz</strong>
-            <p className="muted">Premium bot console</p>
+    <main className="auth-shell" style={{ "--auth-accent": active.accent } as CSSProperties & Record<"--auth-accent", string>}>
+      <section className="auth-frame">
+        <header className="auth-topbar">
+          <div className="auth-brand">
+            <span className="auth-brand-mark">
+              <Bot size={22} />
+            </span>
+            <span>
+              <strong>Browniezzz</strong>
+              <small>Discord operations dashboard</small>
+            </span>
           </div>
-        </div>
 
-        <h2>Command every server from one sharp little cockpit.</h2>
-        <p>
-          Login with Discord, pick a server, and tune the bot live: AI, welcome, roles, tickets, leveling, music, and the
-          visual style clients actually notice.
-        </p>
-
-        {error ? <div className="notice">{error}</div> : null}
-
-        <a className="primary-button" href="/api/auth/login">
-          <LockKeyhole size={18} />
-          Connect Discord
-        </a>
-      </section>
-
-      <section className="login-preview">
-        <div className="preview-topline">
-          <div>
-            <span className="kbd">LIVE DASHBOARD</span>
-            <h2 className="module-title">Server control surface</h2>
-          </div>
-          <div className="status-row">
+          <div className="auth-top-status">
             <span className="dot" />
-            <span className="tiny">Ready</span>
+            <span>OAuth ready</span>
           </div>
-        </div>
+        </header>
 
-        <div className="mini-grid">
-          <article className="mini-command">
-            <span className="kbd">/ai setup</span>
-            <strong>Persona engine</strong>
-            <span className="muted">Channel locked, fast replies, custom voice.</span>
-          </article>
-          <article className="mini-command">
-            <span className="kbd">/music play</span>
-            <strong>Music deck</strong>
-            <span className="muted">Lavalink-ready queue controls.</span>
-          </article>
-          <article className="mini-command">
-            <span className="kbd">/setup</span>
-            <strong>Guild systems</strong>
-            <span className="muted">Welcome, roles, logs, tickets, levels.</span>
-          </article>
-          <article className="mini-command">
-            <span className="kbd">/giveaway</span>
-            <strong>Event tools</strong>
-            <span className="muted">Storage-backed server automation.</span>
-          </article>
+        <div className="auth-grid">
+          <aside className="auth-login-card">
+            <span className="auth-eyebrow">Browniezzz OS</span>
+            <h1>Browniezzz command center.</h1>
+            <p>
+              Discord login, server-level access, live bot config, premium controls, and settings saved directly to Supabase.
+            </p>
+
+            {error ? <div className="notice">{error}</div> : null}
+
+            <a className="auth-connect-button" href="/api/auth/login">
+              <LockKeyhole size={18} />
+              Connect Discord
+              <ArrowRight size={18} />
+            </a>
+
+            <div className="auth-proof-grid">
+              <span>
+                <Shield size={15} />
+                Admin gated
+              </span>
+              <span>
+                <Settings2 size={15} />
+                Live config
+              </span>
+              <span>
+                <Radio size={15} />
+                Bot synced
+              </span>
+            </div>
+          </aside>
+
+          <section className="auth-workbench">
+            <div className="workbench-hero">
+              <div>
+                <span className="auth-eyebrow">Live control preview</span>
+                <h2>{active.title}</h2>
+              </div>
+              <span className="command-pill">
+                <Terminal size={14} />
+                {active.command}
+              </span>
+            </div>
+
+            <div className="module-switcher">
+              {loginModules.map((module) => {
+                const ModuleIcon = module.icon;
+                return (
+                  <button
+                    className={`module-switch ${module.key === active.key ? "active" : ""}`}
+                    key={module.key}
+                    type="button"
+                    onClick={() => setActiveKey(module.key)}
+                  >
+                    <ModuleIcon size={17} />
+                    {module.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="control-surface">
+              <div className="command-console">
+                <div className="console-topline">
+                  <span className="window-dot cyan" />
+                  <span className="window-dot amber" />
+                  <span className="window-dot coral" />
+                  <strong>server-session</strong>
+                </div>
+
+                <div className="console-command">
+                  <span>raven@browniezzz</span>
+                  <strong>{active.command}</strong>
+                </div>
+
+                <div className="event-timeline">
+                  {active.events.map((event) => (
+                    <div className="event-line" key={event}>
+                      <span />
+                      {event}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="console-discord-card">
+                  <div className="discord-user-dot">B</div>
+                  <div>
+                    <strong>Browniezzz</strong>
+                    <p>{active.key === "music" ? "Now playing with queue buttons armed." : "Configuration saved and ready for this server."}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="live-module-panel">
+                <div className="module-panel-head">
+                  <span className="live-module-icon">
+                    <ActiveIcon size={22} />
+                  </span>
+                  <div>
+                    <strong>{active.title}</strong>
+                    <small>{active.description}</small>
+                  </div>
+                </div>
+
+                <div className="module-stat-grid">
+                  {active.stats.map((stat) => (
+                    <div className="module-stat" key={stat.label}>
+                      <span>{stat.label}</span>
+                      <strong>{stat.value}</strong>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="preview-deck">
+                  <div className="preview-message">
+                    <MessagesSquare size={16} />
+                    <span>auto reply channel</span>
+                    <strong>#chat</strong>
+                  </div>
+                  <div className="preview-chat-stack">
+                    {previewLines.map((line, index) => (
+                      <div className={`preview-chat-line ${index === 1 ? "bot" : ""}`} key={line}>
+                        <span>{index === 1 ? "B" : "R"}</span>
+                        <p>{line}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="preview-sliders">
+                    <span style={{ width: "72%" }} />
+                    <span style={{ width: "48%" }} />
+                    <span style={{ width: "86%" }} />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="auth-dock">
+              <div className="dock-control active">
+                <CirclePlay size={17} />
+                Queue
+              </div>
+              <div className="dock-control">
+                <AudioLines size={17} />
+                Filters
+              </div>
+              <div className="dock-control">
+                <SlidersHorizontal size={17} />
+                Setup
+              </div>
+              <div className="dock-meter">
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+              </div>
+            </div>
+          </section>
         </div>
       </section>
     </main>
