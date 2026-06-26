@@ -113,9 +113,12 @@ export const aiCommand: Command = {
           ? "\n\nMissing `OPENROUTER_API_KEY` in `.env`. Add it and restart the bot before this can answer."
           : "\n\nMissing `OPENAI_API_KEY` in `.env`. Add it and restart the bot before this can answer."
         : "";
+      const intentWarning = !env.enableMessageContentIntent
+        ? "\n\nAuto-replies need `ENABLE_MESSAGE_CONTENT_INTENT=true` in `.env` and Message Content Intent enabled in the Discord Developer Portal."
+        : "";
 
       await interaction.reply({
-        content: `AI auto-replies are now enabled only in ${channel}.${warning}\n\nUsers can still use \`/ai ask\` in any channel.`,
+        content: `AI auto-replies are now enabled only in <#${channel.id}>.${warning}${intentWarning}\n\nUsers can still use \`/ai ask\` in any channel.`,
         flags: MessageFlags.Ephemeral
       });
       return;
@@ -158,6 +161,7 @@ export const aiCommand: Command = {
           { name: "Model", value: `\`${env.aiProvider === "openrouter" ? env.openRouterModel : env.openAIModel}\``, inline: true },
           { name: "Reply Size", value: `\`${env.aiMaxTokens} tokens\``, inline: true },
           { name: "Timeout", value: `\`${env.aiTimeoutMs}ms\``, inline: true },
+          { name: "Message Content Intent", value: env.enableMessageContentIntent ? "`Enabled in .env`" : "`Disabled in .env`", inline: true },
           { name: "AI Key", value: hasAiKey() ? "`Loaded`" : "`Missing`", inline: true }
         )
       ],

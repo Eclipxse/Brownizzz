@@ -6,6 +6,7 @@ import { env } from "../env.js";
 import { generateAiReply, hasAiKey } from "./ai.js";
 
 const xpCooldowns = new Map<string, number>();
+const contentIntentWarnings = new Set<string>();
 
 async function handleLeveling(message: Message<true>) {
   const config = await getGuildConfig(message.guild.id);
@@ -41,11 +42,20 @@ async function handleLeveling(message: Message<true>) {
 }
 
 async function handleAiResponder(message: Message<true>) {
-  if (!env.enableMessageContentIntent || !message.content) return;
-
   const config = await getGuildConfig(message.guild.id);
   if (!config.aiResponderEnabled || !hasAiKey()) return;
   if (!config.aiResponderChannelId || message.channel.id !== config.aiResponderChannelId) return;
+  if (!env.enableMessageContentIntent || !message.content) {
+    const warningKey = `${message.guild.id}:${message.channel.id}`;
+    if (!contentIntentWarnings.has(warningKey)) {
+      contentIntentWarnings.add(warningKey);
+      console.warn(
+        `AI auto-reply is enabled in guild ${message.guild.id} channel ${message.channel.id}, ` +
+        "but message content is unavailable. Enable Message Content Intent in Discord Developer Portal and set ENABLE_MESSAGE_CONTENT_INTENT=true."
+      );
+    }
+    return;
+  }
 
   const botId = message.client.user?.id;
   const cleaned = botId
@@ -63,7 +73,12 @@ async function handleAiResponder(message: Message<true>) {
     content: cleaned,
     customPrompt: config.aiResponderPrompt,
     persona: config.aiResponderPersona
-  }).catch(() => "AI request failed. Check the OpenAI key, model, and billing.");
+  }).catch((error) => {
+    console.error("AI auto-reply failed:", error);
+    return env.aiProvider === "openrouter"
+      ? "AI auto-reply failed. Check OpenRouter key, model, and usage limits."
+      : "AI auto-reply failed. Check OpenAI key, model, and billing.";
+  });
 
   await message.reply({
     content: answer,
