@@ -66,21 +66,30 @@ export const aiCommand: Command = {
     )
     .addSubcommand((subcommand) => subcommand.setName("status").setDescription("Show AI responder status.")),
   async execute(interaction) {
-    if (!interaction.guildId || !interaction.guild) return;
+    if (!interaction.guildId) {
+      await interaction.reply({ content: "AI commands only work in servers.", flags: MessageFlags.Ephemeral });
+      return;
+    }
 
     const subcommand = interaction.options.getSubcommand();
 
     if (subcommand === "ask") {
       await interaction.deferReply();
       const config = await getGuildConfig(interaction.guildId);
+      const guild = interaction.guild ?? await interaction.client.guilds.fetch(interaction.guildId).catch(() => null);
       const answer = await generateAiReply({
-        guildName: interaction.guild.name,
+        guildName: guild?.name ?? "this server",
         channelName: interaction.channel && "name" in interaction.channel ? interaction.channel.name ?? "unknown" : "unknown",
         authorName: interaction.user.username,
         content: interaction.options.getString("message", true),
         customPrompt: config.aiResponderPrompt,
         persona: config.aiResponderPersona
-      }).catch(() => "AI request failed. Check your OpenAI API key and model.");
+      }).catch((error) => {
+        console.error("AI request failed:", error);
+        return env.aiProvider === "openrouter"
+          ? "AI request failed. Check `OPENROUTER_API_KEY`, `OPENROUTER_MODEL`, and OpenRouter usage limits."
+          : "AI request failed. Check `OPENAI_API_KEY` and model.";
+      });
 
       await interaction.editReply(answer);
       return;
