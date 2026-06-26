@@ -27,8 +27,9 @@ import {
   Ticket,
   Wand2,
 } from "lucide-react";
+import gsap from "gsap";
 import type { CSSProperties } from "react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type Guild = {
   id: string;
@@ -278,6 +279,7 @@ function Toggle({
 }
 
 function LoginScreen({ error }: { error: string | null }) {
+  const authRootRef = useRef<HTMLElement | null>(null);
   const [activeKey, setActiveKey] = useState(loginModules[0].key);
   const active = loginModules.find((module) => module.key === activeKey) ?? loginModules[0];
   const ActiveIcon = active.icon;
@@ -290,8 +292,122 @@ function LoginScreen({ error }: { error: string | null }) {
           ? ["Raven reached level 12", "Leaderboard updated in Supabase"]
           : ["Raven asked for setup help", "Browniezzz replied in Gen Z mode"];
 
+  useEffect(() => {
+    const root = authRootRef.current;
+    if (!root) return;
+
+    const hoverTargets: HTMLElement[] = [];
+    const removeListeners: Array<() => void> = [];
+
+    const ctx = gsap.context(() => {
+      gsap.set(
+        [
+          ".auth-frame",
+          ".auth-login-card > *",
+          ".workbench-hero",
+          ".module-switch",
+          ".command-console",
+          ".live-module-panel",
+          ".auth-dock"
+        ],
+        { willChange: "transform, opacity" }
+      );
+
+      const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      timeline
+        .from(".auth-frame", { opacity: 0, y: 26, scale: 0.985, duration: 0.72 })
+        .from(".auth-brand-mark", { opacity: 0, y: -10, rotate: -7, scale: 0.8, duration: 0.42 }, "-=0.36")
+        .from(".auth-login-card > *", { opacity: 0, x: -22, stagger: 0.055, duration: 0.48 }, "-=0.26")
+        .from(".workbench-hero", { opacity: 0, y: -18, rotate: -0.7, duration: 0.55 }, "-=0.38")
+        .from(".module-switch", { opacity: 0, y: 18, stagger: 0.045, duration: 0.38 }, "-=0.22")
+        .from([".command-console", ".live-module-panel", ".auth-dock"], { opacity: 0, y: 24, stagger: 0.075, duration: 0.52 }, "-=0.2");
+
+      hoverTargets.push(
+        ...gsap.utils.toArray<HTMLElement>(".auth-connect-button, .module-switch, .dock-control, .auth-proof-grid span")
+      );
+
+      gsap.to(".dock-meter span", {
+        scaleY: 1.7,
+        transformOrigin: "bottom",
+        duration: 0.55,
+        repeat: -1,
+        yoyo: true,
+        stagger: { each: 0.08, from: "center" },
+        ease: "sine.inOut"
+      });
+    }, root);
+
+    hoverTargets.forEach((target) => {
+      const onEnter = () => {
+        gsap.to(target, { y: -4, x: -4, scale: 1.015, duration: 0.18, ease: "power2.out" });
+      };
+      const onLeave = () => {
+        gsap.to(target, { y: 0, x: 0, scale: 1, duration: 0.42, ease: "elastic.out(1, 0.55)" });
+      };
+
+      target.addEventListener("mouseenter", onEnter);
+      target.addEventListener("mouseleave", onLeave);
+
+      removeListeners.push(() => {
+        target.removeEventListener("mouseenter", onEnter);
+        target.removeEventListener("mouseleave", onLeave);
+      });
+    });
+
+    const onPointerMove = (event: PointerEvent) => {
+      const bounds = root.getBoundingClientRect();
+      const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+      const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+
+      gsap.to(".workbench-hero", { x: x * 9, y: y * 5, rotate: x * 0.4, duration: 0.65, ease: "power3.out" });
+      gsap.to(".auth-wide-banner", { x: x * -9, y: y * -4, rotate: x * -0.3, duration: 0.75, ease: "power3.out" });
+      gsap.to(".preview-deck", { x: x * 7, y: y * 4, duration: 0.68, ease: "power3.out" });
+      gsap.to(".auth-brand-mark", { x: x * 5, y: y * 4, rotate: x * 5, duration: 0.7, ease: "power3.out" });
+    };
+
+    root.addEventListener("pointermove", onPointerMove);
+
+    return () => {
+      root.removeEventListener("pointermove", onPointerMove);
+      removeListeners.forEach((remove) => remove());
+      ctx.revert();
+    };
+  }, []);
+
+  useEffect(() => {
+    const root = authRootRef.current;
+    if (!root) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        [".workbench-hero", ".command-console", ".live-module-panel"],
+        { y: 12, rotate: -0.35, scale: 0.992 },
+        { y: 0, rotate: 0, scale: 1, duration: 0.36, ease: "back.out(1.45)" }
+      );
+
+      gsap.fromTo(
+        ".event-line",
+        { opacity: 0, x: -12 },
+        { opacity: 1, x: 0, stagger: 0.04, duration: 0.28, ease: "power2.out" }
+      );
+
+      gsap.fromTo(
+        ".preview-chat-line",
+        { opacity: 0, x: 14 },
+        { opacity: 1, x: 0, stagger: 0.05, duration: 0.3, ease: "power2.out" }
+      );
+    }, root);
+
+    return () => ctx.revert();
+  }, [activeKey]);
+
   return (
-    <main className="auth-shell" style={{ "--auth-accent": active.accent } as CSSProperties & Record<"--auth-accent", string>}>
+    <main
+      className="auth-shell"
+      ref={authRootRef}
+      style={{ "--auth-accent": active.accent } as CSSProperties & Record<"--auth-accent", string>}
+    >
       <section className="auth-frame">
         <header className="auth-topbar">
           <div className="auth-brand">

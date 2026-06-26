@@ -1707,6 +1707,230 @@ body {
   box-shadow: var(--shadow-hard-sm);
 }
 
+.auth-shell {
+  position: relative;
+  isolation: isolate;
+  overflow-x: hidden;
+}
+
+.auth-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.48), transparent 38%),
+    url("/brand/brownie-cloud.png") center / cover no-repeat;
+  mix-blend-mode: soft-light;
+  opacity: 0.38;
+}
+
+.auth-shell::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(135deg, transparent 0 18px, rgba(42, 18, 9, 0.06) 18px 20px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.18) 0 1px, transparent 1px 42px),
+    linear-gradient(180deg, rgba(255, 242, 220, 0.24), rgba(255, 193, 216, 0.14));
+  opacity: 0.74;
+}
+
+.auth-frame,
+.auth-login-card,
+.auth-workbench,
+.workbench-hero,
+.command-console,
+.live-module-panel,
+.auth-dock,
+.preview-deck {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.auth-frame {
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-frame::before {
+  content: "";
+  position: absolute;
+  right: 18px;
+  top: 104px;
+  width: min(210px, 18vw);
+  aspect-ratio: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(255, 229, 184, 0.18)),
+    url("/brand/brownie-icon.png") center / cover no-repeat;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  box-shadow: var(--shadow-hard-sm);
+  opacity: 0.16;
+  transform: rotate(8deg);
+}
+
+.auth-frame::after {
+  content: "";
+  position: absolute;
+  right: clamp(24px, 4vw, 72px);
+  bottom: clamp(18px, 3vw, 44px);
+  width: min(340px, 24vw);
+  height: 28px;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, var(--sky), var(--pink), var(--honey), var(--mint));
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: var(--shadow-hard-sm);
+  opacity: 0.5;
+  transform: rotate(-2deg);
+}
+
+.auth-login-card,
+.auth-workbench {
+  position: relative;
+  z-index: 1;
+}
+
+.auth-login-card::before {
+  content: "";
+  position: absolute;
+  inset: 18px 18px auto auto;
+  width: 74px;
+  height: 74px;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.84), rgba(255, 193, 216, 0.56)),
+    url("/brand/brownie-icon.png") center / cover no-repeat;
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: var(--shadow-hard-sm);
+  transform: rotate(7deg);
+}
+
+.auth-wide-banner,
+.workbench-hero,
+.preview-deck,
+.brand-preview-image {
+  image-rendering: auto;
+}
+
+.workbench-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.workbench-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 18px 14px 18px;
+  height: 8px;
+  pointer-events: none;
+  background: repeating-linear-gradient(90deg, var(--ink) 0 14px, transparent 14px 24px);
+  opacity: 0.16;
+}
+
+.command-console,
+.live-module-panel,
+.preview-deck {
+  position: relative;
+  overflow: hidden;
+}
+
+.command-console::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 34%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 10px);
+}
+
+.command-console > *,
+.live-module-panel > *,
+.preview-deck > * {
+  position: relative;
+  z-index: 1;
+}
+
+.live-module-panel::before {
+  content: "";
+  position: absolute;
+  right: -42px;
+  top: -52px;
+  width: 190px;
+  height: 190px;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 191, 71, 0.22)),
+    url("/brand/brownie-icon.png") center / cover no-repeat;
+  border: 3px solid var(--ink);
+  border-radius: 32px;
+  box-shadow: var(--shadow-hard-sm);
+  opacity: 0.18;
+  transform: rotate(-10deg);
+}
+
+.preview-deck::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  pointer-events: none;
+  border: 2px dashed rgba(42, 18, 9, 0.38);
+  border-radius: 8px;
+}
+
+.auth-connect-button,
+.primary-button,
+.dock-control,
+.module-switch,
+.server-button,
+.nav-button,
+.ghost-button,
+.pill-button,
+.color-button,
+.icon-button {
+  transition:
+    transform 180ms cubic-bezier(0.2, 0.9, 0.18, 1.35),
+    box-shadow 180ms ease,
+    background 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
+}
+
+.module-switch:active,
+.dock-control:active,
+.auth-connect-button:active,
+.primary-button:active {
+  transform: translate(1px, 1px) scale(0.985);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.auth-wide-banner {
+  transform-origin: 50% 50%;
+}
+
+.dock-meter span {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
 @media (max-width: 720px) {
   .auth-frame,
   .sidebar,
