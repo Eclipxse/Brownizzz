@@ -32,7 +32,7 @@ Copy `lavalink/application.example.yml` from this project to `/opt/lavalink/appl
 
 ```bash
 cd /opt/lavalink
-java -Xmx1G -jar Lavalink.jar
+java -Djava.net.preferIPv4Stack=true -Xms256M -Xmx1G -jar Lavalink.jar
 ```
 
 If it says the server started on port `2333`, Lavalink is alive.
@@ -49,7 +49,7 @@ After=network.target
 [Service]
 Type=simple
 WorkingDirectory=/opt/lavalink
-ExecStart=/usr/bin/java -Xmx1G -jar /opt/lavalink/Lavalink.jar
+ExecStart=/usr/bin/java -Djava.net.preferIPv4Stack=true -Xms256M -Xmx1G -jar /opt/lavalink/Lavalink.jar
 Restart=always
 RestartSec=10
 User=root
@@ -81,7 +81,7 @@ LAVALINK_HOST=127.0.0.1
 LAVALINK_PORT=2333
 LAVALINK_PASSWORD=youshallnotpass
 LAVALINK_SECURE=false
-MUSIC_SEARCH_SOURCE=ytmsearch
+MUSIC_SEARCH_SOURCE=ytsearch
 MUSIC_DEFAULT_VOLUME=80
 ```
 

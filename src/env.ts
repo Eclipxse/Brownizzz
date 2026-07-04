@@ -48,7 +48,7 @@ export const env = {
   lavalinkPort: Number.isFinite(lavalinkPort) ? lavalinkPort : 2333,
   lavalinkPassword: process.env.LAVALINK_PASSWORD?.trim() || "youshallnotpass",
   lavalinkSecure: process.env.LAVALINK_SECURE === "true",
-  musicSearchSource: process.env.MUSIC_SEARCH_SOURCE?.trim() || "ytmsearch",
+  musicSearchSource: process.env.MUSIC_SEARCH_SOURCE?.trim() || "ytsearch",
   musicDefaultVolume: Number.isFinite(musicDefaultVolume) ? Math.max(1, Math.min(100, musicDefaultVolume)) : 80,
   storageDriver: storageDriverRaw === "postgres" ? "postgres" : "json",
   databaseUrl: process.env.DATABASE_URL?.trim(),

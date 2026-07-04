@@ -21,7 +21,7 @@ import { palette } from "../utils/ui.js";
 let manager: LavalinkManager | null = null;
 
 const lavalinkUnavailableMessage =
-  "Lavalink is not ready right now. Start/restart Lavalink, wait 10 seconds, then restart the bot so it can attach to a usable node.";
+  "Lavalink is not ready right now. Start/restart Lavalink, wait until /v4/info responds, then restart the bot so it can attach to a usable node.";
 const spotifyUnavailableMessage =
   "Spotify links are not enabled on Lavalink yet. Use a song name or YouTube link for now, or enable the LavaSrc Spotify plugin with Spotify client credentials.";
 
@@ -87,6 +87,14 @@ export function initMusic(client: Client<true>) {
   });
 
   manager.on("trackStart", async (player, track) => {
+    const requestedAt = player.getData<number>("musicRequestStartedAt");
+    if (Number.isFinite(requestedAt)) {
+      console.info(
+        `[music:track-start] guild=${player.guildId} node=${player.node.id} ready=${Math.round(performance.now() - requestedAt)}ms`
+      );
+      player.deleteData("musicRequestStartedAt");
+    }
+
     const channel = player.textChannelId ? await client.channels.fetch(player.textChannelId).catch(() => null) : null;
     if (!channel?.isTextBased() || channel.isDMBased()) return;
 
@@ -135,7 +143,8 @@ export async function createOrGetMusicPlayer(interaction: ChatInputCommandIntera
     throw new Error("Lavalink is offline. Start Lavalink on the VPS, then restart or wait for the bot to reconnect.");
   }
 
-  const member = await interaction.guild.members.fetch(interaction.user.id);
+  const member = interaction.guild.members.cache.get(interaction.user.id)
+    ?? await interaction.guild.members.fetch(interaction.user.id);
   const voiceChannelId = member.voice.channelId;
   if (!voiceChannelId) {
     throw new Error("Join a voice channel first.");
@@ -155,23 +164,51 @@ export async function createOrGetMusicPlayer(interaction: ChatInputCommandIntera
     volume: env.musicDefaultVolume
   });
 
-  try {
-    await player.connect();
-  } catch (error) {
-    explainLavalinkError(error);
-  }
-
-  return player;
+  return {
+    player,
+    shouldConnect: me?.voice.channelId !== voiceChannelId
+  };
 }
 
 export async function playQuery(interaction: ChatInputCommandInteraction, query: string) {
-  const player = await createOrGetMusicPlayer(interaction);
+  const startedAt = performance.now();
+  const { player, shouldConnect } = await createOrGetMusicPlayer(interaction);
   const searchQuery = isUrl(query)
     ? query
     : { query, source: env.musicSearchSource as SearchPlatform };
-  const result = await player.search(searchQuery, interaction.user).catch((error: unknown) => {
-    explainLavalinkError(error);
-  });
+
+  const searchStartedAt = performance.now();
+  let searchMs = 0;
+  let connectMs = 0;
+
+  const searchPromise = player.search(searchQuery, interaction.user)
+    .then((result) => {
+      searchMs = performance.now() - searchStartedAt;
+      return result;
+    })
+    .catch((error: unknown) => {
+      console.error(
+        `[music:search-error] guild=${interaction.guildId} node=${player.node.id} after=${Math.round(performance.now() - searchStartedAt)}ms`,
+        error
+      );
+      explainLavalinkError(error);
+    });
+
+  const connectPromise = shouldConnect
+    ? player.connect()
+      .then(() => {
+        connectMs = performance.now() - searchStartedAt;
+      })
+      .catch((error: unknown) => {
+        console.error(
+          `[music:connect-error] guild=${interaction.guildId} node=${player.node.id} after=${Math.round(performance.now() - searchStartedAt)}ms`,
+          error
+        );
+        explainLavalinkError(error);
+      })
+    : Promise.resolve();
+
+  const [result] = await Promise.all([searchPromise, connectPromise]);
 
   if (!result.tracks.length) {
     throw new Error("No tracks found.");
@@ -181,10 +218,16 @@ export async function playQuery(interaction: ChatInputCommandInteraction, query:
   player.queue.add(tracks);
 
   if (!player.playing && !player.paused) {
+    player.setData("musicRequestStartedAt", startedAt);
     await player.play().catch((error: unknown) => {
       explainLavalinkError(error);
     });
   }
+
+  console.info(
+    `[music:play] guild=${interaction.guildId} node=${player.node.id} source=${isUrl(query) ? "url" : env.musicSearchSource} `
+    + `connect=${Math.round(connectMs)}ms search=${Math.round(searchMs)}ms command=${Math.round(performance.now() - startedAt)}ms`
+  );
 
   return { player, result, added: tracks };
 }
