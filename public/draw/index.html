@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Brownie Draw Party</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee&family=Fredoka:wght@500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/draw/styles.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <section class="brand-rail">
+        <div class="brand-mark">
+          <img src="/brand/brownie-icon.png" alt="Browniezzz" />
+        </div>
+        <div>
+          <p class="eyebrow">Browniezzz Arcade</p>
+          <h1>Draw Party</h1>
+        </div>
+        <div class="room-chip">Room <strong id="roomCode">------</strong></div>
+        <div class="timer-card">
+          <span id="phaseText">Lobby</span>
+          <strong id="timerText">--</strong>
+        </div>
+      </section>
+
+      <section class="game-grid">
+        <aside class="panel players-panel">
+          <div class="panel-title">
+            <span>Scoreboard</span>
+            <b id="roundText">0/3</b>
+          </div>
+          <div id="playersList" class="players-list"></div>
+        </aside>
+
+        <section class="studio">
+          <div class="word-strip">
+            <div>
+              <p class="eyebrow">Secret word</p>
+              <strong id="wordHint">Waiting...</strong>
+            </div>
+            <div id="drawerBadge" class="drawer-badge">No drawer yet</div>
+          </div>
+
+          <div id="choices" class="choices"></div>
+
+          <div class="canvas-stage">
+            <canvas id="board" width="1280" height="720"></canvas>
+            <div id="overlay" class="overlay">
+              <img src="/brand/brownie-cloud.png" alt="" />
+              <h2 id="overlayTitle">Enter the studio</h2>
+              <p id="overlayBody">The room is warming up.</p>
+              <button id="startGameBtn" class="primary-btn hidden" type="button">Start Game</button>
+            </div>
+          </div>
+
+          <div class="toolbar" id="toolbar">
+            <div class="tool-group colors" id="colors"></div>
+            <label class="size-control">
+              <span>Brush</span>
+              <input id="brushSize" type="range" min="4" max="38" value="12" />
+            </label>
+            <button class="tool-btn active" id="brushBtn" type="button">Brush</button>
+            <button class="tool-btn" id="eraserBtn" type="button">Eraser</button>
+            <button class="tool-btn danger" id="clearBtn" type="button">Clear</button>
+          </div>
+        </section>
+
+        <aside class="panel chat-panel">
+          <div class="panel-title">
+            <span>Guess Feed</span>
+            <b id="playersCount">0</b>
+          </div>
+          <div id="guessList" class="guess-list"></div>
+          <form id="guessForm" class="guess-form">
+            <input id="guessInput" autocomplete="off" maxlength="80" placeholder="Type a guess" />
+            <button type="submit">Send</button>
+          </form>
+        </aside>
+      </section>
+    </main>
+
+    <div id="joinGate" class="join-gate">
+      <form id="joinForm" class="join-card">
+        <img src="/brand/brownie-welcome.png" alt="Browniezzz welcome" />
+        <p class="eyebrow">Live multiplayer room</p>
+        <h2>Pick your tag</h2>
+        <input id="playerName" maxlength="20" autocomplete="off" placeholder="Raven" required />
+        <button class="primary-btn" type="submit">Join Game</button>
+      </form>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/draw/app.js"></script>
+  </body>
+</html>

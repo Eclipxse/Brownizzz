@@ -1,6 +1,7 @@
 import { aiCommand } from "./ai.js";
 import type { Command } from "../types.js";
 import { birthdayCommand } from "./birthday.js";
+import { drawCommand } from "./draw.js";
 import { embedBuilderCommand } from "./embed-builder.js";
 import { emojiCommand, stickerCommand } from "./emoji-sticker.js";
 import { giveawayCommand } from "./giveaway.js";
@@ -46,7 +47,8 @@ export const commands: Command[] = [
   stickerCommand,
   minigameCommand,
   musicCommand,
-  voiceCommand
+  voiceCommand,
+  drawCommand
 ];
 
 export const commandMap = new Map(commands.map((command) => [command.data.name, command]));

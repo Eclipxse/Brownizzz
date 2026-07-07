@@ -9,7 +9,7 @@
 <h1 align="center">Browniezzz Discord Bot</h1>
 
 <p align="center">
-  A premium, UI-first Discord bot with moderation, welcome systems, AI replies, tickets, leveling, giveaways, music, and a web dashboard.
+  A premium, UI-first Discord bot with moderation, welcome systems, AI replies, tickets, leveling, giveaways, music, a web dashboard, and live browser games.
 </p>
 
 <p align="center">
@@ -18,6 +18,7 @@
   <img alt="Next.js" src="https://img.shields.io/badge/Dashboard-Next.js-a7f950?style=for-the-badge&labelColor=111827" />
   <img alt="Storage" src="https://img.shields.io/badge/Storage-Supabase-ffbf47?style=for-the-badge&labelColor=111827" />
   <img alt="Music" src="https://img.shields.io/badge/Music-Lavalink-ff5d7d?style=for-the-badge&labelColor=111827" />
+  <img alt="Games" src="https://img.shields.io/badge/Games-Socket.IO-62c7ff?style=for-the-badge&labelColor=111827" />
 </p>
 
 <p align="center">
@@ -38,6 +39,7 @@ The project also ships with a separate web dashboard in `dashboard/`, so server 
 | Discord API | `discord.js` v14 | Slash commands, embeds, buttons, modals, channel/role selectors |
 | AI providers | Groq, OpenRouter, OpenAI-compatible APIs | Fast AI replies and configurable personas |
 | Music engine | Lavalink | Stable voice playback without overloading the bot process |
+| Live games | Express + Socket.IO | Browser-based multiplayer rooms launched from Discord |
 | Database | Supabase Postgres or local JSON | Production storage with quick local testing fallback |
 | Dashboard | Next.js | Browser-based admin control panel |
 | Process manager | PM2 | VPS uptime and restarts |
@@ -50,6 +52,7 @@ The project also ships with a separate web dashboard in `dashboard/`, so server 
 | Welcome | Custom welcome channel, welcome text, autorole, verified role, birthday channel |
 | AI | `/ai ask`, channel-limited auto replies, custom prompt, personas, Groq/OpenRouter/OpenAI support |
 | Music | Lavalink playback, queue, pause, resume, skip, stop, shuffle, volume, loop, now playing |
+| Draw Party | `/draw start` creates a live Skribbl-style drawing and guessing room |
 | Tickets | Ticket panel, category routing, ticket modal, claim, lock, transcript, close confirmation |
 | Moderation | Warn, timeout, kick, ban, history, mod-case storage |
 | Giveaways | Button entry, winner count, automatic ending, database-backed entrants |
@@ -77,7 +80,9 @@ flowchart LR
   Bot --> DB
   Bot --> AI["Groq / OpenRouter / OpenAI"]
   Bot --> Lava["Lavalink"]
+  Bot --> Game["Draw Party Web Server"]
   Lava --> Voice["Discord Voice"]
+  Game --> Browser["Browser Game Rooms"]
 ```
 
 ## Project Structure
@@ -268,6 +273,22 @@ Music commands:
 
 YouTube and YouTube Music search work through the Lavalink YouTube plugin. Spotify, Apple Music, and Deezer links require extra Lavalink plugins and credentials.
 
+## Draw Party Game
+
+Browniezzz includes a live Skribbl-style drawing game hosted by the bot process.
+
+Bot env:
+
+```env
+DRAW_GAME_ENABLED=true
+DRAW_GAME_PORT=8787
+DRAW_GAME_PUBLIC_URL=http://your_server_ip_or_domain:8787
+```
+
+Use `/draw start` in Discord to create a room. The bot sends a Join Game button, and players open the browser game with canvas drawing, word choices, guessing, timers, and scoring.
+
+For production, point `DRAW_GAME_PUBLIC_URL` to the public URL that reaches `DRAW_GAME_PORT`. If you use Nginx/Cloudflare, proxy that domain or subdomain to `127.0.0.1:8787` with WebSocket support.
+
 ## Web Dashboard
 
 The dashboard is in:
@@ -396,7 +417,7 @@ pm2 restart browniezzz-dashboard --update-env
 | Events | `/giveaway`, `/poll`, `/suggest-panel`, `/birthday` |
 | Levels | `/leveling`, `/rank`, `/leaderboard` |
 | Utility | `/embed create`, `/emoji`, `/sticker` |
-| Fun | `/minigame` |
+| Fun | `/minigame`, `/draw start` |
 | Music | `/music play`, `/music queue`, `/music nowplaying`, `/music skip`, `/music stop` |
 
 ## Hosting Size
@@ -417,6 +438,7 @@ Your existing 4 GB RAM VPS is enough for the bot, dashboard, Lavalink, and a sma
 | AI command fails | Check `AI_PROVIDER`, API key, model name, and rate limits |
 | AI auto reply does nothing | Enable Message Content Intent and configure `/ai setup` |
 | Lavalink offline | Start Lavalink and verify `curl -H "Authorization: youshallnotpass" http://127.0.0.1:2333/v4/info` |
+| Draw room does not open | Check `DRAW_GAME_PUBLIC_URL`, open port/proxy `DRAW_GAME_PORT`, and verify `/draw/health` |
 | Supabase auth failed | Use the exact pooler connection string and URL-encode special password characters |
 | Dashboard login fails | Check Discord OAuth redirect URI and `DASHBOARD_BASE_URL` |
 | Dashboard shows no servers | Bot must be in the server and your Discord account needs Manage Server or Administrator |

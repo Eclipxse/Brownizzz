@@ -10,6 +10,7 @@ import { renderWelcome } from "./commands/welcome.js";
 import { env } from "./env.js";
 import { handleInteraction } from "./interactions/index.js";
 import { startBirthdayScheduler } from "./services/birthdays.js";
+import { startDrawGameServer, stopDrawGameServer } from "./services/draw-game.js";
 import { startGiveawayScheduler } from "./services/giveaways.js";
 import { handleMessageCreate } from "./services/messages.js";
 import { handleMusicRaw, initMusic } from "./services/music.js";
@@ -50,6 +51,7 @@ async function registerCommandsOnStart(readyClient: Client<true>) {
 client.once(Events.ClientReady, async (readyClient) => {
   console.log(`Logged in as ${readyClient.user.tag}.`);
   initMusic(readyClient);
+  startDrawGameServer();
   startGiveawayScheduler(readyClient);
   startBirthdayScheduler(readyClient);
 
@@ -133,11 +135,13 @@ client.on(Events.GuildMemberAdd, async (member) => {
 });
 
 process.on("SIGINT", () => {
+  stopDrawGameServer();
   client.destroy();
   process.exit(0);
 });
 
 process.on("SIGTERM", () => {
+  stopDrawGameServer();
   client.destroy();
   process.exit(0);
 });
