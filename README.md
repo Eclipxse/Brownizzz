@@ -373,7 +373,7 @@ Clone and build:
 
 ```bash
 cd /opt
-git clone https://github.com/Eclipxse/Brownizzz.git browniezzz
+git clone https://github.com/Eclipxse/Blunt38.git browniezzz
 cd /opt/browniezzz
 npm ci
 npm run build
