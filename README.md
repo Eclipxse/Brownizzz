@@ -1,144 +1,164 @@
 <p align="center">
-  <img src="dashboard/public/brand/blunt38-banner.jpg" alt="blunt38 banner" width="100%" />
-</p>
-
-<p align="center">
-  <img src="dashboard/public/brand/blunt38-logo.jpg" alt="blunt38 logo" width="128" />
-</p>
-
-<h1 align="center">blunt38 Discord Bot</h1>
-
-<p align="center">
-  A premium, UI-first Discord bot with moderation, welcome systems, AI replies, tickets, leveling, giveaways, music, a web dashboard, and live browser games.
-</p>
-
-<p align="center">
-  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5.x-38dff8?style=for-the-badge&labelColor=111827" />
-  <img alt="discord.js" src="https://img.shields.io/badge/discord.js-v14-8d7aff?style=for-the-badge&labelColor=111827" />
-  <img alt="Next.js" src="https://img.shields.io/badge/Dashboard-Next.js-a7f950?style=for-the-badge&labelColor=111827" />
-  <img alt="Storage" src="https://img.shields.io/badge/Storage-Supabase-ffbf47?style=for-the-badge&labelColor=111827" />
-  <img alt="Music" src="https://img.shields.io/badge/Music-Lavalink-ff5d7d?style=for-the-badge&labelColor=111827" />
-  <img alt="Games" src="https://img.shields.io/badge/Games-Socket.IO-62c7ff?style=for-the-badge&labelColor=111827" />
-</p>
-
-<p align="center">
   <img src="dashboard/public/brand/blunt38-banner.jpg" alt="38 reasons, none explained" width="100%" />
 </p>
 
-## What Is blunt38?
+<p align="center">
+  <img src="dashboard/public/brand/blunt38-logo.jpg" alt="blunt38" width="132" />
+</p>
 
-blunt38 is a full-service Discord bot made for community servers that need more than a few basic commands. It includes setup panels, button-driven flows, configurable server systems, AI replies, Lavalink-powered music playback, and a real-time browser drawing game.
+<h1 align="center">blunt38</h1>
 
-The project also ships with a separate web dashboard in `dashboard/`, so server admins can configure the bot from a browser instead of only using slash commands.
+<p align="center">
+  <code>38 reasons. none explained.</code><br />
+  the discord bot that somehow became an entire operating system.
+</p>
 
-## Core Stack
+<p align="center">
+  <img alt="TypeScript" src="https://img.shields.io/badge/TYPE-scripted-6f4b8b?style=for-the-badge&labelColor=211329" />
+  <img alt="discord.js" src="https://img.shields.io/badge/SIGNAL-discord.js_v14-63d8d2?style=for-the-badge&labelColor=211329" />
+  <img alt="Supabase" src="https://img.shields.io/badge/MEMORY-supabase-b7ef72?style=for-the-badge&labelColor=211329" />
+  <img alt="Lavalink" src="https://img.shields.io/badge/AUDIO-lavalink-ffd166?style=for-the-badge&labelColor=211329" />
+  <img alt="Status" src="https://img.shields.io/badge/STATUS-probably_online-c56bdf?style=for-the-badge&labelColor=211329" />
+</p>
 
-| Layer | Tech | Why it exists |
-| --- | --- | --- |
-| Bot runtime | Node.js + TypeScript | Strong typing and fast development |
-| Discord API | `discord.js` v14 | Slash commands, embeds, buttons, modals, channel/role selectors |
-| AI providers | Groq, OpenRouter, OpenAI-compatible APIs | Fast AI replies and configurable personas |
-| Music engine | Lavalink | Stable voice playback without overloading the bot process |
-| Live games | Express + Socket.IO | Browser-based multiplayer rooms launched from Discord |
-| Database | Supabase Postgres or local JSON | Production storage with quick local testing fallback |
-| Dashboard | Next.js | Browser-based admin control panel |
-| Process manager | PM2 | VPS uptime and restarts |
+---
 
-## Feature Map
+```text
+[ transmission detected ]
 
-| System | Included |
+subject: blunt38
+class: discord multipurpose bot
+commands: 26
+memory: postgres
+voice: lavalink
+personality: configurable
+normal behavior: not guaranteed
+```
+
+## // what is this thing
+
+`blunt38` is a UI-first Discord bot for communities that are tired of stacking twelve random bots and praying they do not fight each other.
+
+It handles moderation, AI replies, music, tickets, roles, leveling, giveaways, temporary voice channels, server setup, a browser dashboard, and a live multiplayer drawing game. lowkey excessive. exactly the point.
+
+The bot runs on Node.js and TypeScript. Persistent data lives in Supabase Postgres, music runs through Lavalink, AI can route through Groq or other OpenAI-compatible providers, and the dashboard is built with Next.js.
+
+## // observed abilities
+
+| Signal | What blunt38 actually does |
 | --- | --- |
-| Setup UI | Button-based `/setup` panel with channel selects, role selects, modals, and reset controls |
-| Welcome | Custom welcome channel, welcome text, autorole, verified role, birthday channel |
-| AI | `/ai ask`, channel-limited auto replies, custom prompt, personas, Groq/OpenRouter/OpenAI support |
-| Music | Lavalink playback, queue, pause, resume, skip, stop, shuffle, volume, loop, now playing |
-| Draw Party | `/draw start` creates a live Skribbl-style drawing and guessing room |
-| Tickets | Ticket panel, category routing, ticket modal, claim, lock, transcript, close confirmation |
-| Moderation | Warn, timeout, kick, ban, history, mod-case storage |
-| Giveaways | Button entry, winner count, automatic ending, database-backed entrants |
-| Polls | Multi-option polls with live vote buttons |
-| Suggestions | Suggestion modal with approve, deny, and discuss actions |
-| Leveling | XP, rank card, leaderboard, level-up channel |
-| Temp Voice | Join-to-create voice channels and empty-channel cleanup |
-| Roles | Admin give/remove role commands and dropdown self-role panels |
-| Embeds | Modal-powered embed builder |
-| Birthdays | Birthday storage and daily birthday announcements |
-| Server Tools | Server info, user info, emoji manager, sticker manager |
-| Mini Games | Coinflip, dice, Rock Paper Scissors buttons |
-| Dashboard | Discord OAuth, server selector, live Discord roles/channels, Supabase config saves |
+| Control surface | `/setup` opens a button, menu, channel-select, role-select, and modal based configuration panel |
+| AI brain | One-off `/ai ask`, one dedicated auto-reply channel, custom prompts, personas, Groq, OpenRouter, and OpenAI-compatible routing |
+| Music deck | Search or link playback, queue, pause, resume, skip, stop, shuffle, loop, volume, removal, and now-playing controls |
+| Draw Party | Real-time browser drawing rooms with word choices, brush, fill, eraser, colors, sounds, guesses, rounds, and scoring |
+| Tickets | Modal intake, category routing, staff claims, locks, transcripts, and close confirmation |
+| Moderation | Warnings, timeouts, kicks, bans, stored cases, history, and voice disconnect controls |
+| Community | Welcome messages, autoroles, self-role menus, polls, suggestions, birthdays, and giveaways |
+| Leveling | XP, rank cards, leaderboards, and configurable level-up announcements |
+| Voice | Join-to-create temporary channels with automatic empty-room cleanup |
+| Server builder | Preview, build, and clean complete server layouts with roles, categories, channels, panels, and bot wiring |
+| Dashboard | Discord OAuth, guild selection, live roles/channels, and Supabase-backed configuration saves |
 
-## Architecture
+## // command index
+
+```text
+/help           /ai              /setup           /welcome
+/role           /role-panel      /ticket-panel    /moderate
+/server         /poll            /suggest-panel   /tempvc
+/giveaway       /leveling        /rank             /leaderboard
+/embed          /birthday        /serverinfo       /userinfo
+/emoji          /sticker         /minigame         /music
+/voice          /draw
+```
+
+The heavier command groups have subcommands. The important ones:
+
+```text
+/ai ask | setup | disable | prompt | persona | status
+/music play | pause | resume | skip | stop | queue | nowplaying
+       volume | loop | shuffle | remove
+/role give | remove | autorole | clear-autorole
+/birthday set | remove | list | channel
+/server preview | build | cleanup
+/voice disconnect
+/draw start
+```
+
+## // signal path
 
 ```mermaid
 flowchart LR
-  Admin["Discord Admin"] --> Dashboard["Next.js Dashboard"]
-  Admin --> Discord["Discord Slash Commands"]
+  Human["server admin"] --> Discord["Discord UI"]
+  Human --> Dashboard["blunt38 dashboard"]
+  Discord --> Bot["blunt38 core"]
   Dashboard --> OAuth["Discord OAuth"]
-  Dashboard --> BotAPI["Discord Bot API"]
   Dashboard --> DB["Supabase Postgres"]
-  Discord --> Bot["blunt38 Bot"]
   Bot --> DB
   Bot --> AI["Groq / OpenRouter / OpenAI"]
   Bot --> Lava["Lavalink"]
-  Bot --> Game["Draw Party Web Server"]
-  Lava --> Voice["Discord Voice"]
-  Game --> Browser["Browser Game Rooms"]
+  Bot --> Draw["Draw Party server"]
+  Lava --> Voice["Discord voice"]
+  Draw --> Browser["multiplayer browser rooms"]
 ```
 
-## Project Structure
+## // files recovered
 
 ```text
 .
-├── src/                         # Discord bot source
-│   ├── commands/                # Slash commands
-│   ├── interactions/            # Button/select/modal handlers
-│   ├── services/                # Store, AI, music, giveaways, messages
-│   └── utils/                   # Shared helpers
-├── dashboard/                   # Next.js web dashboard
-│   ├── public/brand/            # blunt38 images used by README and site
-│   └── src/app/api/             # OAuth, session, guild config API routes
-├── lavalink/                    # Lavalink config example and setup notes
-├── supabase/migrations/         # Postgres schema
-├── .env.example                 # Bot env template
-└── README.md
+|-- src/
+|   |-- commands/          slash command definitions
+|   |-- interactions/      buttons, menus, modals
+|   |-- services/          AI, music, storage, games, schedulers
+|   `-- utils/             shared UI and formatting
+|-- dashboard/             Next.js control panel
+|-- public/draw/           multiplayer Draw Party client
+|-- lavalink/              music-node configuration
+|-- supabase/migrations/   production database schema
+|-- .env.example           runtime configuration template
+`-- README.md              you are here. unfortunate.
 ```
 
-## Quick Start For Local Testing
+## // summon it locally
+
+Requirements:
+
+- Node.js 24
+- npm
+- a Discord application and bot token
 
 ```bash
+git clone https://github.com/Eclipxse/Blunt38.git blunt38
+cd blunt38
 npm install
 copy .env.example .env
 npm run dev
 ```
 
-Put your bot token in `.env`:
+Linux and macOS use `cp .env.example .env` instead of `copy`.
+
+Minimum `.env`:
 
 ```env
 DISCORD_TOKEN=your_bot_token
-```
-
-For faster slash-command updates while testing, set:
-
-```env
+DISCORD_CLIENT_ID=your_application_id
 DISCORD_GUILD_ID=your_test_server_id
 REGISTER_COMMANDS_ON_START=true
+BOT_BRAND_NAME=blunt38
 ```
 
-If `DISCORD_GUILD_ID` is empty, commands register globally and can take longer to appear.
+`DISCORD_GUILD_ID` makes command updates appear quickly in one test server. Remove it when you want global commands everywhere. Global registration can take longer to propagate because Discord likes suspense.
 
-## Discord Developer Portal Setup
+## // developer portal ritual
 
-Create or open your app in the Discord Developer Portal.
+Create the application in the [Discord Developer Portal](https://discord.com/developers/applications), add a bot, then configure:
 
-Recommended bot settings:
-
-| Setting | Value |
+| Setting | Recommended value |
 | --- | --- |
-| Public Bot | On |
+| Public Bot | On if other people should invite it |
 | Requires OAuth2 Code Grant | Off |
-| Presence Intent | Off unless needed |
 | Server Members Intent | On |
-| Message Content Intent | On only if AI auto-replies to normal messages |
+| Message Content Intent | On when AI auto-replies are enabled |
+| Presence Intent | Off unless a feature needs it |
 
 Invite scopes:
 
@@ -147,42 +167,34 @@ bot
 applications.commands
 ```
 
-For testing, invite with Administrator permission. For production, reduce permissions later based on which modules you enable.
+Administrator is convenient while testing. Production servers should eventually use only the permissions their enabled modules need.
 
-## Storage Modes
+## // memory implant
 
-### Local JSON
-
-Good for quick testing:
+Quick local testing can use JSON:
 
 ```env
 STORAGE_DRIVER=json
 ```
 
-### Supabase Postgres
-
-Recommended for production:
+Production should use Supabase Postgres:
 
 ```env
 STORAGE_DRIVER=postgres
-DATABASE_URL=postgresql://postgres.project_ref:password@aws-1-region.pooler.supabase.com:5432/postgres
+DATABASE_URL=postgresql://postgres.project_ref:password@pooler.supabase.com:5432/postgres
 ```
 
-Apply the schema from:
+Apply:
 
 ```text
 supabase/migrations/001_discord_bot_core_schema.sql
 ```
 
-The bot stores guild config, mod cases, polls, role panels, giveaways, levels, birthdays, and temp voice channels.
+That database stores guild configuration, moderation cases, polls, role panels, giveaways, XP, birthdays, and temporary voice state. It remembers the lore so the process does not have to.
 
-## AI Setup
+## // give it a brain
 
-blunt38 supports multiple OpenAI-compatible providers.
-
-### Groq
-
-Fastest recommended option for Discord replies:
+Groq is the recommended fast route:
 
 ```env
 AI_PROVIDER=groq
@@ -193,46 +205,23 @@ AI_TIMEOUT_MS=15000
 ENABLE_MESSAGE_CONTENT_INTENT=true
 ```
 
-### OpenRouter
+OpenRouter also works:
 
 ```env
 AI_PROVIDER=openrouter
 OPENROUTER_API_KEY=your_openrouter_key
 OPENROUTER_MODEL=openrouter/free
 OPENROUTER_APP_NAME=blunt38
-AI_MAX_TOKENS=140
-AI_TIMEOUT_MS=15000
 ENABLE_MESSAGE_CONTENT_INTENT=true
 ```
 
-Use a chat model for replies. Rerank models are for sorting documents and will not generate normal Discord chat responses.
+Use a chat model. Rerank models sort documents; they do not know how to yap back.
 
-### OpenAI-Compatible
+AI auto-replies happen only inside the channel selected with `/ai setup`. `/ai ask` still works anywhere the bot can answer.
 
-```env
-AI_PROVIDER=openai
-OPENAI_API_KEY=your_openai_api_key
-OPENAI_MODEL=gpt-5.4-mini
-ENABLE_MESSAGE_CONTENT_INTENT=true
-```
+## // make it sing
 
-Useful AI commands:
-
-```text
-/ai ask
-/ai setup
-/ai persona
-/ai prompt
-/ai disable
-```
-
-Auto replies only happen in the channel configured by an admin. Users can still use `/ai ask` anywhere.
-
-## Music Setup
-
-Music uses Lavalink as a separate Java process.
-
-Bot env:
+Music runs through a separate Lavalink process:
 
 ```env
 LAVALINK_HOST=127.0.0.1
@@ -243,86 +232,49 @@ MUSIC_SEARCH_SOURCE=ytsearch
 MUSIC_DEFAULT_VOLUME=80
 ```
 
-Start Lavalink first, then start the bot.
+Start Lavalink before the bot:
 
 ```bash
-java -Xmx1G -jar Lavalink.jar
+java -Xms256M -Xmx1G -jar Lavalink.jar
 ```
 
-For VPS service setup, see:
+YouTube and YouTube Music search use the Lavalink YouTube plugin. Spotify, Apple Music, and Deezer links need the matching plugins and credentials. A link existing does not magically make the source enabled. tragic but real.
 
-```text
-lavalink/README.md
-```
+More node setup lives in [`lavalink/README.md`](lavalink/README.md).
 
-Music commands:
-
-```text
-/music play
-/music pause
-/music resume
-/music skip
-/music stop
-/music queue
-/music nowplaying
-/music volume
-/music loop
-/music shuffle
-/music remove
-```
-
-YouTube and YouTube Music search work through the Lavalink YouTube plugin. Spotify, Apple Music, and Deezer links require extra Lavalink plugins and credentials.
-
-## Draw Party Game
-
-blunt38 includes a live Skribbl-style drawing game hosted by the bot process.
-
-Bot env:
+## // side quest: Draw Party
 
 ```env
 DRAW_GAME_ENABLED=true
 DRAW_GAME_PORT=8787
-DRAW_GAME_PUBLIC_URL=http://your_server_ip_or_domain:8787
+DRAW_GAME_PUBLIC_URL=https://draw.your-domain.com
 ```
 
-Use `/draw start` in Discord to create a room. The bot sends a Join Game button, and players open the browser game with canvas drawing, word choices, guessing, timers, and scoring.
+Run `/draw start`, hit the Join Game button, choose a name, and begin ruining friendships with questionable drawings.
 
-For production, point `DRAW_GAME_PUBLIC_URL` to the public URL that reaches `DRAW_GAME_PORT`. If you use Nginx/Cloudflare, proxy that domain or subdomain to `127.0.0.1:8787` with WebSocket support.
+For production, reverse proxy the public domain to `127.0.0.1:8787` and include WebSocket upgrade headers. Health check:
 
-## Web Dashboard
-
-The dashboard is in:
-
-```text
-dashboard/
+```bash
+curl http://127.0.0.1:8787/draw/health
 ```
 
-It provides:
+## // control room
 
-| Dashboard Area | What it controls |
-| --- | --- |
-| Overview | Server config health, quick switches, logs |
-| AI | AI channel, auto-reply toggle, persona, custom prompt |
-| Welcome | Welcome channel, message, autorole, verified role, birthday channel |
-| Support | Ticket category, support role, temp voice settings, log channel |
-| Levels | Leveling toggle and level-up channel |
-| Music | Lavalink music defaults and DJ-role mapping |
-
-Dashboard env:
+The dashboard lives in `dashboard/` and provides Discord login, admin-only guild access, real channel and role selectors, configuration previews, and database-backed saves.
 
 ```env
-DISCORD_CLIENT_ID=your_discord_application_client_id
-DISCORD_CLIENT_SECRET=your_discord_oauth_client_secret
+DISCORD_CLIENT_ID=your_application_id
+DISCORD_CLIENT_SECRET=your_oauth_secret
 DISCORD_TOKEN=your_bot_token
-DASHBOARD_BASE_URL=http://your_server_ip_or_domain:3000
+DASHBOARD_BASE_URL=https://bot.your-domain.com
 DASHBOARD_SESSION_SECRET=replace_with_a_long_random_secret
-DATABASE_URL=postgresql://postgres.project_ref:password@aws-1-region.pooler.supabase.com:5432/postgres
+DATABASE_URL=your_supabase_pooler_url
 ```
 
-Discord OAuth redirect URI:
+OAuth callback:
 
 ```text
-http://your_server_ip_or_domain:3000/api/auth/callback
+https://bot.your-domain.com/api/auth/callback
 ```
 
 Local dashboard:
@@ -334,130 +286,76 @@ copy .env.example .env
 npm run dev
 ```
 
-Production dashboard:
+## // keep the signal alive
 
-```bash
-cd dashboard
-npm ci
-npm run build
-pm2 start npm --name browniezzz-dashboard -- start -- -p 3000
-pm2 save
-```
-
-## VPS Deployment Flow
-
-Recommended layout:
-
-```text
-/opt/browniezzz       # bot + dashboard
-/opt/lavalink         # Lavalink jar + application.yml
-```
-
-Install runtime:
+Recommended VPS for the complete stack: **2 vCPU, 4 GB RAM, 40+ GB storage**.
 
 ```bash
 apt update
 apt install -y git curl unzip openjdk-17-jre
-```
 
-Install Node with `nvm`, then use Node 24:
-
-```bash
-nvm install 24
-nvm use 24
-node -v
-npm -v
-```
-
-Clone and build:
-
-```bash
 cd /opt
-git clone https://github.com/Eclipxse/Blunt38.git browniezzz
-cd /opt/browniezzz
+git clone https://github.com/Eclipxse/Blunt38.git blunt38
+cd /opt/blunt38
 npm ci
 npm run build
-```
+npm run deploy:commands
 
-Start bot:
-
-```bash
-pm2 start dist/index.js --name browniezzz-bot
+pm2 start dist/index.js --name blunt38-bot
 pm2 save
 ```
 
-Start dashboard:
+Dashboard:
 
 ```bash
-cd /opt/browniezzz/dashboard
+cd /opt/blunt38/dashboard
 npm ci
 npm run build
-pm2 start npm --name browniezzz-dashboard -- start -- -p 3000
+pm2 start npm --name blunt38-dashboard -- start -- -p 3000
 pm2 save
 ```
 
-Useful PM2 commands:
+Useful checks:
 
 ```bash
 pm2 status
-pm2 logs browniezzz-bot
-pm2 logs browniezzz-dashboard
-pm2 restart browniezzz-bot --update-env
-pm2 restart browniezzz-dashboard --update-env
+pm2 logs blunt38-bot
+systemctl status lavalink --no-pager -l
+curl -H "Authorization: youshallnotpass" http://127.0.0.1:2333/v4/info
 ```
 
-## Main Commands
+## // when the signal dies
 
-| Category | Commands |
+| Symptom | Usually means |
 | --- | --- |
-| Setup | `/setup`, `/welcome`, `/role`, `/role-panel` |
-| AI | `/ai ask`, `/ai setup`, `/ai persona`, `/ai prompt`, `/ai disable` |
-| Moderation | `/moderate`, `/userinfo`, `/serverinfo` |
-| Tickets | `/ticket-panel` |
-| Events | `/giveaway`, `/poll`, `/suggest-panel`, `/birthday` |
-| Levels | `/leveling`, `/rank`, `/leaderboard` |
-| Utility | `/embed create`, `/emoji`, `/sticker` |
-| Fun | `/minigame`, `/draw start` |
-| Music | `/music play`, `/music queue`, `/music nowplaying`, `/music skip`, `/music stop` |
+| `The application did not respond` | The bot is offline, blocked on network/database work, or did not defer the interaction in time |
+| AI command fails | Wrong provider, key, model, timeout, or rate limit |
+| Auto replies stay silent | Message Content Intent is off or `/ai setup` points somewhere else |
+| Lavalink offline | The Java service is stopped, still starting, or its host/password does not match |
+| Music link source not enabled | The required Lavalink source plugin is missing |
+| Draw room uses the wrong URL | `DRAW_GAME_PUBLIC_URL` is stale in the active process environment |
+| Supabase authentication fails | Wrong pooler string, password, username, SSL mode, or URL encoding |
+| Dashboard OAuth fails | Redirect URI and `DASHBOARD_BASE_URL` do not match exactly |
+| Commands are missing | Deploy commands again and verify `DISCORD_CLIENT_ID` |
 
-## Hosting Size
-
-| Use case | VPS size |
-| --- | --- |
-| Bot without music | 1 vCPU, 1 GB RAM |
-| Bot with music | 1 vCPU, 2 GB RAM |
-| Bot + dashboard + Lavalink | 2 vCPU, 4 GB RAM |
-
-Your existing 4 GB RAM VPS is enough for the bot, dashboard, Lavalink, and a small website if traffic is normal.
-
-## Troubleshooting
-
-| Problem | Fix |
-| --- | --- |
-| Slash command says application did not respond | Check bot logs with `pm2 logs browniezzz-bot` |
-| AI command fails | Check `AI_PROVIDER`, API key, model name, and rate limits |
-| AI auto reply does nothing | Enable Message Content Intent and configure `/ai setup` |
-| Lavalink offline | Start Lavalink and verify `curl -H "Authorization: youshallnotpass" http://127.0.0.1:2333/v4/info` |
-| Draw room does not open | Check `DRAW_GAME_PUBLIC_URL`, open port/proxy `DRAW_GAME_PORT`, and verify `/draw/health` |
-| Supabase auth failed | Use the exact pooler connection string and URL-encode special password characters |
-| Dashboard login fails | Check Discord OAuth redirect URI and `DASHBOARD_BASE_URL` |
-| Dashboard shows no servers | Bot must be in the server and your Discord account needs Manage Server or Administrator |
-
-## Safety Notes
+## // opsec, because apparently we need to say it
 
 - Never commit `.env`.
-- Rotate leaked Discord tokens immediately.
-- Keep the bot token server-side only.
-- Use Supabase Postgres for client/server production use.
-- Do not run multiple bot processes with the same token unless you know why.
+- Never paste live tokens into screenshots, chat, commits, or issue reports.
+- Rotate a Discord token immediately after it leaks.
+- Keep database credentials and OAuth secrets on the server.
+- Do not run multiple bot processes with one token unless sharding is intentional.
+- Back up Supabase before destructive schema changes.
 
-## Brand Assets
-
-The blunt38 assets used by the README, dashboard, and Draw Party live here:
+## // visual identity
 
 ```text
 dashboard/public/brand/blunt38-banner.jpg
 dashboard/public/brand/blunt38-logo.jpg
 ```
 
-These images are loaded by the website and rendered directly in this README.
+The code is documented. The 38 reasons are not.
+
+<p align="center">
+  <sub>always watching // still not explaining</sub>
+</p>
